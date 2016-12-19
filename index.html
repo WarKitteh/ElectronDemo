@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Stock App</title>
+  </head>
+
+
+  <style> 
+  body {
+    background: limegreen;
+    text-align: center;
+    font-family: 'arial';
+
+  }
+
+  </style>
+  <body style="-webkit-app-region: drag">
+    <p id="demo"> 
+
+    <h2>GOOGLE</h2>
+    <div class="google" id="priceGoogle"><h3>AWAITING</h3></div>
+    <br>
+
+    <h2>YAHOO</h2>
+    <div class="yahoo" id="priceYahoo"><h3>AWAITING</h3></div>
+    <br>
+
+    <h2>Your Ticker</h2>
+    <div class="yourTicker" id="priceTicker">#######</div>
+    <br>
+
+    <form id="forum1">
+    Ticker:<input ticker="tickerInput" type="text" size="20"> 
+    </form>
+    <button onclick="outputname()">Ticker</button>
+    
+    </p>
+    <script>
+    
+    function outputname(){
+      
+      var tickerUrl = "https://finance.google.com/finance/info?client=ig&q=NASDAQ:"
+      var ticker = document.getElementById("fourm1");
+      var finalInput = ticker.elements["tickerInput"].value;
+      var finalTicket = tickerUrl.concate(ticker);
+      
+      document.getElementById("demo").innerHTML;
+    }
+      var request = require('request');
+      setInterval (function() {
+
+      /* request for google */
+      request("https://finance.google.com/finance/info?client=ig&q=NASDAQ:GOOGL", function(error, response, body
+        ){
+          body = body.slice(3);
+          body = JSON.parse(body);
+          console.log(body);
+          newPrice(body);
+        });
+
+      request("https://finance.google.com/finance/info?client=ig&q=NASDAQ:YHOO", function(error, response, body
+        ){
+          body = body.slice(3);
+          body = JSON.parse(body);
+          console.log(body);
+          yahooPrice(body);
+        });
+
+
+        }, 10000);
+        /* google shit */
+        
+        request('finalTicket', function(error, response, body
+        ){
+          body = body.slice(3);
+          body = JSON.parse(body);
+          console.log(body);
+          tickerPrice(body);
+        });
+
+        function newPrice(arr) {
+          currentGooglePrice = arr[0]["l"]
+          document.getElementById("priceGoogle").innerHTML = currentGooglePrice;
+        }
+        /* yahoo shit */
+        
+        function yahooPrice(arr2) {
+          currentYahooPrice = arr2[0]["l"]
+          document.getElementById("priceYahoo").innerHTML = currentYahooPrice;
+        }
+        
+        function tickerPrice(arr3) {
+          currentTickerPrice = arr3[0]["l"]
+          document.getElementById("priceTicker").innerHTML = currentTickerPrice;
+        }
+    </script>
+
+    
+    
+  </body>
+</html>
